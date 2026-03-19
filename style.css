@@ -244,11 +244,20 @@ body {
 }
 
 .name-label {
-    display: block;
+    display: inline-block;
     font-family: var(--font-heading);
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
     color: var(--kohl);
+    background: var(--gold);
+    padding: 8px 20px;
+    border: 3px solid var(--kohl);
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 var(--kohl);
+    cursor: pointer;
 }
 
 .input-wrapper {
@@ -823,10 +832,6 @@ body {
 @media (min-width: 640px) {
     :root {
         --wheel-size: 380px;
-    }
-
-    .lantern-center {
-        display: block;
     }
 
     .header {

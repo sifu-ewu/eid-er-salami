@@ -1,0 +1,844 @@
+/* ===========================
+   CSS Custom Properties
+   =========================== */
+:root {
+    --eid-green: #00A86B;
+    --gold: #FFD700;
+    --coral: #FF6B6B;
+    --kohl: #1A1A2E;
+    --cream: #FFF8E7;
+    --purple: #7B2D8E;
+    --border-w: 3px;
+    --shadow-offset: 5px;
+    --wheel-size: min(80vw, 320px);
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-arabic: 'Amiri', serif;
+}
+
+/* ===========================
+   Reset & Base
+   =========================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--cream);
+    color: var(--kohl);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    /* Subtle geometric pattern overlay */
+    background-image:
+        linear-gradient(45deg, rgba(0,168,107,0.03) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0,168,107,0.03) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0,168,107,0.03) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0,168,107,0.03) 75%);
+    background-size: 40px 40px;
+    background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+}
+
+/* ===========================
+   Container
+   =========================== */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===========================
+   Hanging Lanterns
+   =========================== */
+.lantern {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    animation: sway 3s ease-in-out infinite;
+    transform-origin: top center;
+    pointer-events: none;
+}
+
+.lantern-left {
+    left: 8px;
+    animation-delay: 0s;
+}
+
+.lantern-right {
+    right: 8px;
+    animation-delay: 1s;
+}
+
+.lantern-center {
+    left: 50%;
+    transform: translateX(-50%);
+    animation: sway 3.5s ease-in-out infinite;
+    animation-delay: 0.5s;
+    display: none;
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+/* ===========================
+   Background Cosmos - Stars, Moons & Lights
+   =========================== */
+.bg-cosmos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Twinkling stars */
+.bg-star {
+    position: absolute;
+    color: var(--gold);
+    animation: twinkle 3s ease-in-out infinite;
+    opacity: 0;
+}
+
+.s1  { left: 5%;  top: 12%; font-size: 10px; animation-delay: 0s; }
+.s2  { left: 15%; top: 25%; font-size: 14px; animation-delay: 0.4s; }
+.s3  { left: 88%; top: 8%;  font-size: 12px; animation-delay: 0.8s; }
+.s4  { left: 72%; top: 18%; font-size: 8px;  animation-delay: 1.2s; }
+.s5  { left: 92%; top: 30%; font-size: 16px; animation-delay: 1.6s; }
+.s6  { left: 35%; top: 65%; font-size: 10px; animation-delay: 2.0s; }
+.s7  { left: 60%; top: 72%; font-size: 13px; animation-delay: 2.4s; }
+.s8  { left: 8%;  top: 55%; font-size: 9px;  animation-delay: 2.8s; }
+.s9  { left: 80%; top: 60%; font-size: 15px; animation-delay: 0.3s; }
+.s10 { left: 48%; top: 88%; font-size: 11px; animation-delay: 1.0s; }
+.s11 { left: 25%; top: 42%; font-size: 13px; animation-delay: 1.8s; }
+.s12 { left: 95%; top: 50%; font-size: 8px;  animation-delay: 3.2s; }
+.s13 { left: 3%;  top: 80%; font-size: 14px; animation-delay: 0.6s; }
+.s14 { left: 55%; top: 35%; font-size: 10px; animation-delay: 2.6s; }
+.s15 { left: 42%; top: 15%; font-size: 12px; animation-delay: 3.5s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+/* Crescent moons floating */
+.bg-moon {
+    position: absolute;
+    color: var(--gold);
+    opacity: 0.15;
+    animation: moonDrift 12s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+}
+
+.m1 { left: 8%;  top: 20%; font-size: 32px; animation-delay: 0s; }
+.m2 { right: 6%; top: 35%; font-size: 26px; animation-delay: 3s; transform: scaleX(-1); }
+.m3 { left: 20%; bottom: 18%; font-size: 22px; animation-delay: 6s; }
+.m4 { right: 15%; bottom: 30%; font-size: 28px; animation-delay: 9s; transform: scaleX(-1); }
+
+@keyframes moonDrift {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.12;
+    }
+    50% {
+        transform: translateY(-18px) rotate(10deg);
+        opacity: 0.25;
+    }
+}
+
+/* Glowing light dots */
+.bg-light {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px 4px rgba(255, 215, 0, 0.5), 0 0 24px 8px rgba(255, 215, 0, 0.2);
+    animation: glow 4s ease-in-out infinite;
+    opacity: 0;
+}
+
+.l1 { left: 12%; top: 30%; animation-delay: 0s; }
+.l2 { left: 85%; top: 22%; animation-delay: 0.5s; }
+.l3 { left: 45%; top: 70%; animation-delay: 1.0s; }
+.l4 { left: 70%; top: 45%; animation-delay: 1.5s; }
+.l5 { left: 25%; top: 58%; animation-delay: 2.0s; }
+.l6 { left: 90%; top: 65%; animation-delay: 2.5s; }
+.l7 { left: 55%; top: 15%; animation-delay: 3.0s; }
+.l8 { left: 6%;  top: 75%; animation-delay: 3.5s; }
+
+@keyframes glow {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.9; transform: scale(1.5); }
+}
+
+/* ===========================
+   Header
+   =========================== */
+.header {
+    background: var(--eid-green);
+    border: var(--border-w) solid var(--kohl);
+    border-top: none;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--kohl);
+    padding: 24px 20px 20px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 28px;
+    border-radius: 0 0 16px 16px;
+}
+
+.header-deco {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    top: 12px;
+    left: 14px;
+}
+
+.header-deco-right {
+    left: auto;
+    right: 14px;
+}
+
+.crescent-flip {
+    transform: scaleX(-1);
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 7vw, 3rem);
+    color: var(--cream);
+    text-shadow: 3px 3px 0 var(--kohl);
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ===========================
+   Name Input Section
+   =========================== */
+.name-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.name-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--kohl);
+}
+
+.input-wrapper {
+    display: inline-block;
+    width: 100%;
+    max-width: 340px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 14px 18px;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: var(--border-w) solid var(--kohl);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--kohl);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--kohl);
+    outline: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.name-input:focus {
+    box-shadow: 6px 6px 0 var(--eid-green);
+    transform: translate(-1px, -1px);
+}
+
+.name-input::placeholder {
+    color: #aaa;
+    font-weight: 400;
+}
+
+/* ===========================
+   Spinner Section
+   =========================== */
+.spinner-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.wheel-container {
+    position: relative;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+}
+
+.pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    filter: drop-shadow(2px 2px 0 var(--kohl));
+    transition: transform 0.1s;
+}
+
+.pointer.bounce {
+    animation: pointerBounce 0.4s ease;
+}
+
+@keyframes pointerBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+}
+
+.wheel-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid var(--kohl);
+    box-shadow: 6px 6px 0 var(--kohl), 0 0 0 4px var(--gold);
+    overflow: hidden;
+    transition: transform 0s;
+    will-change: transform;
+}
+
+.wheel-wrapper canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ===========================
+   Spin Button
+   =========================== */
+.spin-btn {
+    font-family: var(--font-heading);
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    padding: 16px 48px;
+    background: var(--gold);
+    color: var(--kohl);
+    border: var(--border-w) solid var(--kohl);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--kohl);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.spin-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--kohl);
+}
+
+.spin-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--kohl);
+}
+
+.spin-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--kohl);
+}
+
+.spin-btn-text {
+    display: inline-block;
+}
+
+.spin-btn:not(:disabled) .spin-btn-text {
+    animation: btnPulse 2s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+/* ===========================
+   Modal Overlay (shared)
+   =========================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 46, 0.7);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 32px 24px;
+    border: 4px solid var(--kohl);
+    border-radius: 16px;
+    text-align: center;
+    transform: scale(0.7);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+/* ===========================
+   Money Result Modal
+   =========================== */
+.money-card {
+    background: linear-gradient(145deg, #ffffff 0%, var(--cream) 50%, rgba(255, 215, 0, 0.1) 100%);
+    box-shadow: 8px 8px 0 var(--coral);
+    overflow: visible;
+}
+
+/* Popup floating decorations */
+.popup-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ps {
+    position: absolute;
+    color: var(--gold);
+    opacity: 0;
+    animation: popStar 2s ease-in-out infinite;
+}
+
+.ps-1 { top: 5%;  left: 8%;  font-size: 16px; animation-delay: 0s; }
+.ps-2 { top: 10%; right: 10%; font-size: 12px; animation-delay: 0.3s; }
+.ps-3 { top: 40%; left: 5%;  font-size: 18px; animation-delay: 0.6s; color: var(--eid-green); }
+.ps-4 { bottom: 15%; right: 8%; font-size: 14px; animation-delay: 0.9s; }
+.ps-5 { bottom: 5%; left: 15%; font-size: 11px; animation-delay: 1.2s; }
+.ps-6 { top: 20%; left: 50%; font-size: 10px; animation-delay: 1.5s; }
+
+@keyframes popStar {
+    0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    50% { opacity: 0.7; transform: scale(1.2) rotate(180deg); }
+}
+
+.money-emoji {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+    animation: bounceEmoji 0.6s ease 0.2s both;
+}
+
+@keyframes bounceEmoji {
+    0% { transform: scale(0) rotate(-20deg); }
+    60% { transform: scale(1.3) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.money-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--kohl);
+    margin-bottom: 12px;
+}
+
+.money-amount-wrap {
+    background: var(--kohl);
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin: 0 auto 12px;
+    display: inline-block;
+}
+
+.money-amount {
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+    text-shadow: none;
+    -webkit-text-stroke: 0;
+}
+
+.money-sub {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.modal-close-btn {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    padding: 12px 32px;
+    background: var(--eid-green);
+    color: var(--cream);
+    border: var(--border-w) solid var(--kohl);
+    box-shadow: 4px 4px 0 var(--kohl);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--kohl);
+}
+
+.modal-close-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--kohl);
+}
+
+/* Big win styling */
+.money-card.big-win {
+    box-shadow: 8px 8px 0 var(--gold), 0 0 40px rgba(255, 215, 0, 0.3);
+    animation: goldenGlow 1.5s ease-in-out infinite alternate;
+    border-color: var(--gold);
+}
+
+.money-card.big-win .money-amount-wrap {
+    background: linear-gradient(135deg, #1A1A2E 0%, #2d2d5e 100%);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.money-card.big-win .money-amount {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes goldenGlow {
+    0% { box-shadow: 8px 8px 0 var(--gold), 0 0 20px rgba(255, 215, 0, 0.2); }
+    100% { box-shadow: 8px 8px 0 var(--gold), 0 0 40px rgba(255, 215, 0, 0.5); }
+}
+
+/* Small win styling */
+.money-card.small-win .money-emoji {
+    font-size: 2.5rem;
+}
+
+.money-card.small-win .money-amount {
+    color: var(--coral);
+}
+
+.money-card.small-win .money-amount-wrap {
+    background: #333;
+}
+
+/* ===========================
+   Dua Modal
+   =========================== */
+.dua-card {
+    background: linear-gradient(145deg, #fffdf5 0%, #fff8e7 30%, rgba(255, 215, 0, 0.15) 100%);
+    box-shadow: 8px 8px 0 var(--purple), 0 0 60px rgba(255, 215, 0, 0.3);
+    padding: 44px 28px 36px;
+    border-color: var(--purple);
+    overflow: visible;
+}
+
+.dua-overlay.active {
+    background: rgba(26, 26, 46, 0.8);
+}
+
+.dua-glow-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    animation: ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+.dua-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.dua-star {
+    position: absolute;
+    color: var(--gold);
+    opacity: 0.4;
+    animation: duaFloat 4s ease-in-out infinite;
+}
+
+.ds-1 { top: 8%; left: 10%; font-size: 20px; animation-delay: 0s; }
+.ds-2 { top: 15%; right: 12%; font-size: 14px; animation-delay: 0.8s; }
+.ds-3 { bottom: 20%; left: 15%; font-size: 18px; animation-delay: 1.5s; }
+.ds-4 { bottom: 12%; right: 10%; font-size: 12px; animation-delay: 2.2s; }
+.ds-5 { top: 45%; left: 5%; font-size: 10px; animation-delay: 3s; }
+.ds-6 { top: 55%; right: 5%; font-size: 16px; animation-delay: 0.5s; }
+.ds-7 { top: 30%; left: 3%; font-size: 11px; animation-delay: 1.8s; }
+.ds-8 { bottom: 30%; right: 6%; font-size: 13px; animation-delay: 2.5s; }
+
+@keyframes duaFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-12px) scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+.dua-ornament {
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 24px;
+    letter-spacing: 12px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.dua-arabic-wrap {
+    background: linear-gradient(135deg, rgba(123,45,142,0.06) 0%, rgba(255,215,0,0.08) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 14px;
+    padding: 20px 16px;
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.dua-arabic {
+    font-family: var(--font-arabic);
+    font-size: clamp(1.7rem, 6vw, 2.4rem);
+    font-weight: 700;
+    color: var(--kohl);
+    direction: rtl;
+    line-height: 2;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.dua-divider-top {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 14px auto;
+}
+
+.dua-transliteration {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    font-style: italic;
+    color: var(--purple);
+    margin-bottom: 8px;
+    animation: fadeInUp 0.8s ease 0.5s both;
+}
+
+.dua-translation {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 6px;
+    animation: fadeInUp 0.8s ease 0.7s both;
+}
+
+.dua-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin: 16px auto;
+}
+
+.dua-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--eid-green);
+    margin-bottom: 20px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dua-close-btn {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    padding: 14px 36px;
+    background: var(--gold);
+    color: var(--kohl);
+    border: var(--border-w) solid var(--kohl);
+    box-shadow: 4px 4px 0 var(--purple);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.dua-close-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--purple);
+}
+
+.dua-close-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--purple);
+}
+
+.dua-lanterns {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+.dua-lantern {
+    animation: lanternFloat 3s ease-in-out infinite;
+}
+
+.dl-1 { animation-delay: 0s; }
+.dl-2 { animation-delay: 1s; color: var(--gold); }
+.dl-3 { animation-delay: 2s; }
+
+@keyframes lanternFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ===========================
+   Confetti Pieces (CSS)
+   =========================== */
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(400px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ===========================
+   Footer (removed - using bg cosmos)
+   =========================== */
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (min-width: 640px) {
+    :root {
+        --wheel-size: 380px;
+    }
+
+    .lantern-center {
+        display: block;
+    }
+
+    .header {
+        padding: 28px 24px;
+        margin-bottom: 36px;
+    }
+
+    .container {
+        padding: 0 24px 60px;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --wheel-size: 400px;
+    }
+
+    .header-deco .crescent,
+    .header-deco .eight-star {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    .header-deco {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .dua-arabic {
+        font-size: 1.4rem;
+    }
+
+    .lantern {
+        display: none;
+    }
+}
+
+/* ===========================
+   Spin shake effect
+   =========================== */
+@keyframes screenShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+body.shaking {
+    animation: screenShake 0.1s linear infinite;
+}

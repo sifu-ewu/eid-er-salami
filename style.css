@@ -774,8 +774,48 @@ body {
 }
 
 /* ===========================
-   Footer (removed - using bg cosmos)
+   Credit Footer
    =========================== */
+.credit {
+    text-align: center;
+    padding: 14px 20px;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--kohl);
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: var(--cream);
+    border: 3px solid var(--kohl);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 4px -3px 0 var(--kohl);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.credit a {
+    color: var(--eid-green);
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--gold);
+    padding: 2px 8px;
+    border: 2px solid var(--kohl);
+    border-radius: 4px;
+    box-shadow: 2px 2px 0 var(--kohl);
+    transition: all 0.15s ease;
+    display: inline-block;
+}
+
+.credit a:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--kohl);
+    background: var(--coral);
+    color: var(--cream);
+}
 
 /* ===========================
    Responsive

@@ -158,9 +158,16 @@
             const data = await res.json();
             segIndex = data.segmentIndex;
         } catch (err) {
-            isSpinning = false;
-            spinBtn.disabled = false;
-            return;
+            // Fallback for local testing (no server): use simple random, no Nova possible
+            const fallbackWeights = [30, 30, 20, 0, 0, 20, 0];
+            const sum = fallbackWeights.reduce((a, b) => a + b, 0);
+            const roll = Math.random() * sum;
+            let cumulative = 0;
+            segIndex = 0;
+            for (let i = 0; i < fallbackWeights.length; i++) {
+                cumulative += fallbackWeights[i];
+                if (roll < cumulative) { segIndex = i; break; }
+            }
         }
 
         const targetRotation = getTargetRotation(segIndex);

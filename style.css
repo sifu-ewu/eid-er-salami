@@ -887,3 +887,163 @@ body {
 body.shaking {
     animation: screenShake 0.1s linear infinite;
 }
+
+/* ===========================
+   Nova Infinity Modal
+   =========================== */
+.hidden { display: none !important; }
+
+.nova-overlay.active {
+    background: rgba(26, 26, 46, 0.88);
+}
+
+.nova-card {
+    background: linear-gradient(145deg, #1A1A2E 0%, #2d1a3e 50%, #3d0f2e 100%);
+    box-shadow: 8px 8px 0 #C92B7A, 0 0 60px rgba(201, 43, 122, 0.5);
+    border-color: #C92B7A;
+    padding: 40px 28px 32px;
+    overflow: visible;
+}
+
+.nova-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.nv {
+    position: absolute;
+    opacity: 0;
+    animation: novaFloat 3s ease-in-out infinite;
+}
+.nv-1 { top: 8%;  left: 8%;   font-size: 20px; animation-delay: 0s; }
+.nv-2 { top: 12%; right: 10%; font-size: 16px; animation-delay: 0.5s; }
+.nv-3 { top: 45%; left: 5%;   font-size: 14px; animation-delay: 1.0s; }
+.nv-4 { bottom: 18%; right: 8%; font-size: 18px; animation-delay: 1.5s; }
+.nv-5 { bottom: 10%; left: 12%; font-size: 16px; animation-delay: 2.0s; }
+.nv-6 { top: 25%; right: 5%;  font-size: 12px; animation-delay: 2.5s; }
+
+@keyframes novaFloat {
+    0%, 100% { opacity: 0;   transform: scale(0.5) translateY(0); }
+    50%       { opacity: 0.9; transform: scale(1.3) translateY(-10px); }
+}
+
+.nova-emoji {
+    font-size: 4rem;
+    margin-bottom: 14px;
+    animation: bounceEmoji 0.6s ease 0.2s both, novaRotate 4s ease-in-out 1s infinite;
+}
+
+@keyframes novaRotate {
+    0%, 100% { transform: scale(1)   rotate(0deg); }
+    25%       { transform: scale(1.1) rotate(10deg); }
+    75%       { transform: scale(1.1) rotate(-10deg); }
+}
+
+.nova-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.nova-love {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #FF69B4;
+    margin-bottom: 24px;
+}
+
+.nova-input-section { margin-bottom: 20px; }
+
+.nova-input-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--cream);
+    margin-bottom: 10px;
+}
+
+.nova-input-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.nova-currency {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.nova-amount-input {
+    width: 180px;
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: 3px solid #C92B7A;
+    box-shadow: 4px 4px 0 #C92B7A;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--kohl);
+    outline: none;
+    text-align: center;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.nova-amount-input:focus {
+    border-color: var(--gold);
+    box-shadow: 4px 4px 0 var(--gold);
+}
+
+.nova-amount-input::-webkit-inner-spin-button,
+.nova-amount-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.nova-confirm-btn {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #C92B7A 0%, #FF1493 100%);
+    color: #fff;
+    border: 3px solid var(--kohl);
+    box-shadow: 4px 4px 0 var(--kohl);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.nova-confirm-btn:hover  { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--kohl); }
+.nova-confirm-btn:active { transform: translate(2px, 2px);   box-shadow: 1px 1px 0 var(--kohl); }
+
+.nova-display { margin-bottom: 20px; }
+
+.nova-amount-wrap {
+    background: linear-gradient(135deg, #C92B7A 0%, #8B1A4A 100%);
+    border-radius: 14px;
+    padding: 14px 24px;
+    margin: 0 auto 12px;
+    display: inline-block;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px rgba(201, 43, 122, 0.5);
+}
+
+.nova-final-amount {
+    font-family: var(--font-mono);
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    line-height: 1.2;
+}
+
+.nova-sub-love {
+    font-size: 0.95rem;
+    color: #FF69B4;
+    margin-bottom: 20px;
+}

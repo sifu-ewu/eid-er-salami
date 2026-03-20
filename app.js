@@ -13,12 +13,6 @@
         { label: 'দোয়া ☪', value: 'dua', color: '#7B2D8E', textColor: '#FFD700', type: 'dua'   },
     ];
 
-    // Weights for normal users (must sum to 100) — 1000 & 2000 are 0%
-    // 5 BDT & 50 BDT most common, then 100, then Dua
-    const NORMAL_WEIGHTS = [30, 30, 20, 0, 0, 20];
-    // Nova always gets index 4 (2000 BDT)
-    const NOVA_SEGMENT = 4;
-
     const NUM_SEGMENTS = SEGMENTS.length;
     const ARC = (2 * Math.PI) / NUM_SEGMENTS;
     const FULL_SPINS = 6;
@@ -107,29 +101,6 @@
     }
 
     // ===========================
-    // Weighted Random Selection
-    // ===========================
-    function pickSegment(name) {
-        const trimmed = name.trim().toLowerCase();
-        if (trimmed === 'nova') {
-            return NOVA_SEGMENT;
-        }
-
-        // Weighted random for normal users
-        const cumulative = [];
-        let sum = 0;
-        for (let i = 0; i < NORMAL_WEIGHTS.length; i++) {
-            sum += NORMAL_WEIGHTS[i];
-            cumulative.push(sum);
-        }
-        const roll = Math.random() * sum;
-        for (let i = 0; i < cumulative.length; i++) {
-            if (roll < cumulative[i]) return i;
-        }
-        return 0; // fallback
-    }
-
-    // ===========================
     // Calculate Target Rotation
     // ===========================
     function getTargetRotation(segmentIndex) {
@@ -153,7 +124,7 @@
     // ===========================
     // Spin
     // ===========================
-    function spin() {
+    async function spin() {
         const name = nameInput.value.trim();
         if (!name) {
             nameInput.focus();
@@ -168,7 +139,19 @@
         isSpinning = true;
         spinBtn.disabled = true;
 
-        const segIndex = pickSegment(name);
+        // Ask the server which segment was won (keeps weights & Nova logic hidden)
+        let segIndex;
+        try {
+            const res = await fetch(`/api/spin?name=${encodeURIComponent(name)}`);
+            if (!res.ok) throw new Error('Server error');
+            const data = await res.json();
+            segIndex = data.segmentIndex;
+        } catch (err) {
+            isSpinning = false;
+            spinBtn.disabled = false;
+            return;
+        }
+
         const targetRotation = getTargetRotation(segIndex);
 
         // Apply spin

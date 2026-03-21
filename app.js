@@ -8,6 +8,8 @@
         { label: '৳5',    value: 5,      color: '#FFF8E7', textColor: '#1A1A2E', type: 'money' },
         { label: '৳50',   value: 50,     color: '#FFD700', textColor: '#1A1A2E', type: 'money' },
         { label: '৳100',  value: 100,    color: '#00A86B', textColor: '#FFF8E7', type: 'money' },
+        { label: '৳200',  value: 200,    color: '#4FC3F7', textColor: '#1A1A2E', type: 'money' },
+        { label: '৳500',  value: 500,    color: '#FF9800', textColor: '#1A1A2E', type: 'money' },
         { label: '৳1000', value: 1000,   color: '#FF6B6B', textColor: '#1A1A2E', type: 'money' },
         { label: '৳2000', value: 2000,   color: '#E84545', textColor: '#FFF8E7', type: 'money' },
         { label: 'দোয়া ☪', value: 'dua',  color: '#7B2D8E', textColor: '#FFD700', type: 'dua'  },
@@ -162,9 +164,9 @@
         } catch (err) {
             // Fallback for local testing (no server)
             if (name.toLowerCase() === 'nova') {
-                segIndex = 6; // always ∞ for Nova
+                segIndex = 8; // always ∞ for Nova (index 8 after adding ৳200 & ৳500)
             } else {
-                const fallbackWeights = [1, 1, 1, 1, 1, 1, 1];
+                const fallbackWeights = [1, 1, 1, 1, 1, 1, 1, 1, 1];
                 const sum = fallbackWeights.reduce((a, b) => a + b, 0);
                 const roll = Math.random() * sum;
                 let cumulative = 0;

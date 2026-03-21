@@ -4,9 +4,10 @@ export default function handler(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'GET');
 
     // Prize weights (hidden from the browser)
-    // Index matches SEGMENTS order: ৳5, ৳50, ৳100, ৳1000, ৳2000, দোয়া, ∞(nova)
-    const NORMAL_WEIGHTS = [30, 30, 20, 0, 0, 20, 0]; // ∞ is nova-only, 0% for normal users
-    const NOVA_SEGMENT   = 6;                           // Nova always wins ∞ (index 6)
+    // Index: ৳5, ৳50, ৳100, ৳1000, ৳2000, দোয়া, ∞(nova)
+    // Equal probability for all 7 segments for normal users; Nova always gets ∞
+    const NORMAL_WEIGHTS = [1, 1, 1, 1, 1, 1, 1];
+    const NOVA_SEGMENT   = 6;
 
     const name = (req.query.name || '').trim().toLowerCase();
 

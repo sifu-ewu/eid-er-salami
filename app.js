@@ -43,6 +43,8 @@
     const novaInputSection = document.getElementById('novaInputSection');
     const novaDisplay      = document.getElementById('novaDisplay');
     const novaFinalAmount  = document.getElementById('novaFinalAmount');
+    const novaTitle        = document.getElementById('novaTitle');
+    const novaSubLove      = document.getElementById('novaSubLove');
 
     let currentRotation = 0;
     let isSpinning = false;
@@ -158,15 +160,19 @@
             const data = await res.json();
             segIndex = data.segmentIndex;
         } catch (err) {
-            // Fallback for local testing (no server): use simple random, no Nova possible
-            const fallbackWeights = [30, 30, 20, 0, 0, 20, 0];
-            const sum = fallbackWeights.reduce((a, b) => a + b, 0);
-            const roll = Math.random() * sum;
-            let cumulative = 0;
-            segIndex = 0;
-            for (let i = 0; i < fallbackWeights.length; i++) {
-                cumulative += fallbackWeights[i];
-                if (roll < cumulative) { segIndex = i; break; }
+            // Fallback for local testing (no server)
+            if (name.toLowerCase() === 'nova') {
+                segIndex = 6; // always ∞ for Nova
+            } else {
+                const fallbackWeights = [1, 1, 1, 1, 1, 1, 1];
+                const sum = fallbackWeights.reduce((a, b) => a + b, 0);
+                const roll = Math.random() * sum;
+                let cumulative = 0;
+                segIndex = 0;
+                for (let i = 0; i < fallbackWeights.length; i++) {
+                    cumulative += fallbackWeights[i];
+                    if (roll < cumulative) { segIndex = i; break; }
+                }
             }
         }
 
@@ -270,6 +276,8 @@
     // Nova Modal
     // ===========================
     function showNovaModal(name) {
+        novaTitle.textContent = `${name}, you deserve Infinite Salami!`;
+        novaSubLove.textContent = `Eid Mubarak ${name}! Infinite love for you ♾️`;
         novaInputSection.classList.remove('hidden');
         novaDisplay.classList.add('hidden');
         novaAmountInput.value = '';
